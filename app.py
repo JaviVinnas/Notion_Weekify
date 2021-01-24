@@ -49,7 +49,7 @@ class App:
         count = 0
         for clase_creada, clase in clases_creadas:
             count += 1
-            if verbose: print("PASO {0}/{1} -> creando {2}".format(count, len(clases_creadas), repr(clase)))
+            if verbose: print("PASO {0}/{1} -> borrando {2}".format(count, len(clases_creadas), repr(clase)))
             #eliminamos la clase de notion
             clase_creada.remove()
             #restauramos el contador uno hacia atrás de postgres

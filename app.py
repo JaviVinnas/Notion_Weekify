@@ -1,5 +1,4 @@
-from clases import Cuatri, Curso
-from main import main
+from clases import *
 from base_datos import BaseDatos
 from mi_notion import MiNotion
 
@@ -55,6 +54,20 @@ class App:
             #restauramos el contador uno hacia atrás de postgres
             self.bd.cambiar_cuenta_asignatura(clase.asignatura, clase.practica, -1)
         if verbose: print("> BORRADO TERMINADO")
+
+    def get_asignaturas(self, curso:Curso, cuatri:Cuatri):
+        '''Devuelve una lista con las asignaturas de un curso-cuatri'''
+        return self.bd.get_asignaturas(curso, cuatri)
+
+    def get_clases(self, curso: Curso, cuatri: Cuatri, excluir_terminadas: bool = True):
+        '''Devuelve las clases de un determinado cuatri pudiendo excluirse o no las terminadas'''
+        return self.bd.get_clases(curso,cuatri,excluir_terminadas)
+
+    def get_profes(self):
+        '''
+        Devuelve un lista de tuplas (id, nombre) con los profes que se tengan guardados en notion
+        '''
+        return self.notion.get_profes()
 
 
     def test(self):

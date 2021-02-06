@@ -114,8 +114,8 @@ class MiNotion:
             nueva_clase.ubicacion = clase.ubicacion
             if verbose: print(">\t10 -> Ubicación de {0} creada ({1})".format(repr(clase),nueva_clase.ubicacion))
         # 11º >> INDICACION PARA PONER RESUMEN
-        nueva_clase.resumen = '[[PONER_QUE_SE_VIO]]'
-        if verbose: print(">\t -> Indicación de poner resumen de {0} creada".format(repr(clase)))
+        nueva_clase.resumen = 'PONER_QUE_SE_VIO'
+        if verbose: print(">\t11 -> Indicación de poner resumen de {0} creada".format(repr(clase)))
         #devolvemos la clase
         return nueva_clase
 

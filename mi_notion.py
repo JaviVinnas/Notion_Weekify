@@ -63,10 +63,9 @@ class MiNotion:
         # 1º -> le metemos su objeto asignatura a la asignatura
         self.load_asignatura(clase.asignatura)
         # 2º -> le metemos su objeto profe a los profes de prácticas y teóricas
-        self.load_profe(clase.asignatura.profe_teoricas)
-        self.load_profe(clase.asignatura.profe_practicas)
+        if clase.asignatura.profe_teoricas: self.load_profe(clase.asignatura.profe_teoricas)
+        if clase.asignatura.profe_practicas: self.load_profe(clase.asignatura.profe_practicas)
         # creamos variables de utilidad
-
         # estamos en condiciones de crear la clase
         nueva_clase = self.tablas[Tablas.cosas_con_fecha].collection.add_row()
         if verbose: print(">\tFila creada")
@@ -102,12 +101,18 @@ class MiNotion:
         nueva_clase.tipo_asignatura = repr(clase.asignatura)
         if verbose: print(">\t8º -> Asignatura de {0} creada ({1})".format(repr(clase),nueva_clase.asignatura))
         # 9º >>PROFE
-        nueva_clase.profes = [clase.asignatura.profe_practicas.notion_obj if clase.practica else clase.asignatura.profe_teoricas.notion_obj]
+        if clase.practica:
+        #si hubiera un profe
+            if clase.asignatura.profe_practicas != None:
+                nueva_clase.profes = [clase.asignatura.profe_practicas.notion_obj]
+        else:
+            if clase.asignatura.profe_teoricas != None:
+                nueva_clase.profes= [clase.asignatura.profe_teoricas.notion_obj]
         if verbose: print(">\t9º -> Profe de {0} creada ({1})".format(repr(clase),nueva_clase.profes))
         # 10º >> UBICACION SI HUBIERA
         if clase.ubicacion:
             nueva_clase.ubicacion = clase.ubicacion
-            if verbose: print(">\t -> Ubicación de {0} creada ({1})".format(repr(clase),nueva_clase.ubicacion))
+            if verbose: print(">\t10 -> Ubicación de {0} creada ({1})".format(repr(clase),nueva_clase.ubicacion))
         # 11º >> INDICACION PARA PONER RESUMEN
         nueva_clase.resumen = '[[PONER_QUE_SE_VIO]]'
         if verbose: print(">\t -> Indicación de poner resumen de {0} creada".format(repr(clase)))

@@ -93,10 +93,6 @@ class Hora:
         else:
             return self.min < other.min
 
-    def __gt__(self, other):
-        assert isinstance(other, self.__class__)
-        return not self.__lt__(other)
-
     def __eq__(self, other):
         assert isinstance(other, self.__class__)
         return self.hora == other.hora and self.min == other.min
@@ -192,7 +188,7 @@ class Asignatura:
         return out
 
     def __repr__(self):
-        return self.nombre_abreviado if self.nombre_abreviado else self.nombre_completo
+        return self.nombre_abreviado.upper() if self.nombre_abreviado else self.nombre_completo
 
 
 class Clase:
@@ -241,17 +237,17 @@ class Horario:
 
     def add_clase(self, clase: Clase):
         assert clase.dia_semana != None
-        self.cuenta += 1
-        tupla_cuenta_clase = (self.cuenta, clase)
-        self.clases[clase.dia_semana].append(tupla_cuenta_clase)
+        self.clases[clase.dia_semana].append(clase)
         self.clases_as_list.append(clase)
 
     def __str__(self):
         out = ''
         for dia_semana, clases_horario in self.clases.items():
             out += '='*8 + dia_semana.value[str] + '='*8 + '\n'
-            for cuenta, clase in sorted(clases_horario):
+            cuenta = 1
+            for clase in sorted(clases_horario):
                 out += '[[{0}]]:\t'.format(cuenta) + str(clase) + '\n'
+                cuenta += 1
         return out
 
     def vacio(self):

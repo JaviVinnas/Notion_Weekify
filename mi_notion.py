@@ -2,7 +2,6 @@
 
 from notion.client import NotionClient
 from notion.collection import NotionDate
-
 from clases import *
 
 
@@ -10,13 +9,12 @@ class MiNotion:
 
     '''Clase con las transacciones que hago en el notion'''
 
-    def __init__(self, token_v2: str, tablas: dict):
+    def __init__(self, token_v2: str, tablasPlantilla: dict):
         self.cliente = NotionClient(token_v2=token_v2)
         self.tablas = {}
         # iteramos en las tablas
         for tabla in Tablas:
-            self.tablas[tabla] = self.cliente.get_collection_view(
-                tablas[tabla])
+            self.tablas[tabla] = self.cliente.get_collection_view(tablasPlantilla[tabla])
 
     def __str__(self):
         out = "__NotioN_ObjecT__\n"
